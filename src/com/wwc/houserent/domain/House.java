@@ -73,12 +73,12 @@ public class House {
     }
 
     //为了方便的输出对象的信息，实现toString方法
-
+    //在此修改数据本身的显示格式
     @Override
     public String toString() {
-        return id + "\t" +
+        return id + "\t\t" +
                 name + "\t" +
-                phone + "\t" +
+                phone + "\t\t" +
                 address + "\t" +
                 rent + "\t" +
                 state;
