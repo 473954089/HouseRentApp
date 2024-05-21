@@ -73,8 +73,8 @@ public class Utility {
      */
     public static int readInt(int defaultValue) {
         int n;
-        for (; ; ) {
-            String str = readKeyBoard(10, true);
+        for (; ; ) {//代表无限循环
+            String str = readKeyBoard(10, true);//此处还是用字符串去接收输入，再根据需要去转对应的类型，便于处理数据，而不是直接接收对应类型
             if (str.equals("")) {
                 return defaultValue;
             }
