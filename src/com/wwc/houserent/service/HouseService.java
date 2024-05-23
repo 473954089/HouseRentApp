@@ -10,6 +10,7 @@ import com.wwc.houserent.domain.House;
  */
 public class HouseService {
 
+    //区分：数组长度、数组下标、数组id、当前数组个数
     //用于存放House对象，对数据的crud主要是业务层要做的事
     private House[] houses;
     //记录当前有多少个房屋信息，默认初始化信息为1，即默认有一条数据
@@ -29,14 +30,23 @@ public class HouseService {
     ////modify方法，根据用户传入newHouse修改房屋数组
     public boolean modify(House newHouse) {
 
+        //遍历houses数组，查找要修改的数组对象下标，很多时候都是通过找下标办事
         int index=-1;
         for (int i = 0; i < houseNums; i++) {
             if (newHouse.getId() == houses[i].getId()) {
-                houses[i] = newHouse;
-                return true;
+                index=i;//记录要修改的数组对象下标
             }
         }
-        return false;
+
+        if (index == -1) return false;//过关斩将数据校验法
+
+        //将修改数据同步到要修改的对象中
+        if (!("".equals(newHouse.getName()))) houses[index].setName(newHouse.getName());
+        if (!("".equals(newHouse.getPhone()))) houses[index].setPhone(newHouse.getPhone());
+        if (!("".equals(newHouse.getAddress()))) houses[index].setAddress(newHouse.getAddress());
+        if (!(newHouse.getRent()==-1)) houses[index].setRent(newHouse.getRent());
+        if (!("".equals(newHouse.getState()))) houses[index].setState(newHouse.getState());
+        return true;
     }
 
     //del方法，根据用户传入id查询房屋数组，删除id一致的房屋对象
@@ -90,11 +100,15 @@ public class HouseService {
     //add方法，添加新对象，返回boolean
     public boolean add(House newHouse) {
 
-        //判断是否还可以继续添加新数据，此处暂时先不考虑数组扩容的问题，后续可添加
-        if (houseNums == houses.length) {//数组已满，不能在添加
-            System.out.println("数组已满，不能在添加");
-            return false;
-        }//过关斩将数据校验法
+        //判断houses数组是否已满，是否需要扩容，当前数据个数等于houses数组的长度时证明，已经满了
+        if (houseNums == houses.length) {
+            //数组扩容,创建一个新数组，比前面多10个元素，拷贝旧数组数据到新数组，让旧数组引用指向它
+            House[] temp = new House[houses.length + 10];
+            for (int i = 0; i < houses.length; i++) {
+                temp[i]=houses[i];
+            }
+            houses=temp;
+        }
 
         //把newHouse对象加入到最新的最后（个数刚好与下标吻合）,增加了一个空房
         houses[houseNums++] = newHouse;

@@ -29,6 +29,7 @@ public class HouseView {
     //modifyHouse()接收用户输入id，调用modify方法，修改房屋
     public void modifyHouse() {
 
+        //显示修改界面
         System.out.println("=============修改房屋信息=============");
         System.out.print("请选择待修改房屋编号（-1退出）");
         int updateid = Utility.readInt();
@@ -44,29 +45,20 @@ public class HouseView {
             return;
         }
 
-        //给出修改界面,此处还是将数据统一交回HouseService层处理，而不在HouseView层处理
+        //给出修改界面,此处还是将接收数据统一交回HouseService层处理，而不在HouseView层处理
         //HouseView层处理，HouseService层只负责用户数据的接收
         System.out.print("姓名(" + modifyHouse.getName() + ")：");
-        String name = Utility.readString(8,"");
-        if ("".equals(name)) name=modifyHouse.getName();
-
+        String name = Utility.readString(8, "");
         System.out.print("电话(" + modifyHouse.getPhone() + ")：");
-        String phone = Utility.readString(12,"");
-        if ("".equals(phone)) phone=modifyHouse.getPhone();
-
+        String phone = Utility.readString(12, "");
         System.out.print("地址(" + modifyHouse.getAddress() + ")：");
-        String address = Utility.readString(16,"");
-        if ("".equals(address)) address=modifyHouse.getAddress();
-
+        String address = Utility.readString(16, "");
         System.out.print("月租(" + modifyHouse.getRent() + ")：");
         int rent = Utility.readInt(-1);
-        if (rent==-1) rent=modifyHouse.getRent();
-
         System.out.print("状态(" + modifyHouse.getState() + ")：");
         String state = Utility.readString(3);
-        if ("".equals(state)) state=modifyHouse.getAddress();
 
-        //将修改内容封装成一个House对象，调用HouseService中的modify方法，然后传入House对象
+        //将修改内容封装成一个House对象，调用HouseService中的modify方法，然后传入修改前与修改后的House对象
         House newHouse = new House(modifyHouse.getId(), name, phone, address, rent, state);
         if (houseService.modify(newHouse)) {
             System.out.println("=============修改完成=============");

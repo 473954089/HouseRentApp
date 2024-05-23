@@ -2,10 +2,7 @@ package com.wwc.houserent;
 import com.wwc.houserent.view.HouseView;
 
 /**
- * 房屋出租系统（整体上类似于零钱通项目，但多了“分层模式”的思想
- * 后续完善内容：
- * 1.数组扩容
- * 2.修改modifyHouse()方法，封装到Service层
+ * 房屋出租系统（整体上类似于零钱通项目，但多了“分层模式”的思想）
  */
 public class HouseRentApp {
     public static void main(String[] args) {
